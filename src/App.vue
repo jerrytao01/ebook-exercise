@@ -5,7 +5,16 @@
 </template>
 
 <script>
-  export default {}
+  import { mapGetters } from 'vuex'
+
+  export default {
+    mounted () {
+      console.log(this.book)
+    },
+    computed: {
+      ...mapGetters(['book'])
+    }
+  }
   document.addEventListener('DOMContentLoaded', () => {
     const html = document.querySelector('html')
     let fontSize = window.innerWidth / 10
