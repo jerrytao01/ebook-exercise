@@ -1,19 +1,12 @@
 <template>
   <div id="app">
-    <span class="text">ABCDEFG</span>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
 
   export default {
-    mounted () {
-      console.log(this.book)
-    },
-    computed: {
-      ...mapGetters(['book'])
-    }
   }
   document.addEventListener('DOMContentLoaded', () => {
     const html = document.querySelector('html')
@@ -23,10 +16,9 @@
   })
 </script>
 
-<style>
-  .text {
-    /*font-family: "Days One";*/
-    font-size: 1rem;
-    color: orange;
-  }
+<style lang="sass" scoped>
+  #app
+    width: 100%
+    height: 100%
+    overflow: hidden
 </style>
