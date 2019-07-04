@@ -1,33 +1,38 @@
 <template>
-  <transition name="slide-up">
-    <div class="menu-wrapper" :class="{'hide-box-shadow': !menuVisable}" v-show="menuVisable">
-      <div class="icon-wrapper">
-        <span class="icon-menu" @click="showSetting(3)"></span>
+  <div>
+    <transition name="slide-up">
+      <div class="menu-wrapper" :class="{'hide-box-shadow': !menuVisable || settingVisible >= 0}" v-show="menuVisable">
+        <div class="icon-wrapper">
+          <span class="icon-menu" @click="showSetting(3)"></span>
+        </div>
+        <div class="icon-wrapper">
+          <span class="icon-progress" @click="showSetting(2)"></span>
+        </div>
+        <div class="icon-wrapper">
+          <span class="icon-bright" @click="showSetting(1)"></span>
+        </div>
+        <div class="icon-wrapper">
+          <span class="icon-A" @click="showSetting(0)"></span>
+        </div>
       </div>
-      <div class="icon-wrapper">
-        <span class="icon-progress" @click="showSetting(2)"></span>
-      </div>
-      <div class="icon-wrapper">
-        <span class="icon-bright" @click="showSetting(1)"></span>
-      </div>
-      <div class="icon-wrapper">
-        <span class="icon-A" @click="showSetting(0)"></span>
-      </div>
-    </div>
-  </transition>
+    </transition>
+    <ebook-setting-font></ebook-setting-font>
+  </div>
 </template>
 
 <script>
   import { ebookMixin } from '../../utils/mixin'
+  import EbookSettingFont from './EbookSettingFont'
 
   export default {
     name: 'EbookMemu',
+    components: { EbookSettingFont },
     mixins: [
       ebookMixin
     ],
     methods: {
       showSetting (key) {
-        console.log(key)
+        this.setSettingVisible(key)
       }
     }
   }
