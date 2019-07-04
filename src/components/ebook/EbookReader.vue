@@ -5,32 +5,42 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
+  import { ebookMixin } from '../../utils/mixin'
   import Epub from 'epubjs'
 
   global.ePub = Epub
 
   export default {
     name: 'EbookReader',
-    computed: {
-      ...mapGetters(['fileName'])
-    },
+    mixins: [
+      ebookMixin
+    ],
     methods: {
+      // 隐藏标题和菜单栏
+      hideTitleAndMenu () {
+        this.setMenuVisable(false)
+      },
       // 上一页
       prevPage () {
-        this.rendition.prev()
+        if (this.rendition) {
+          this.rendition.prev()
+          this.hideTitleAndMenu()
+        }
       },
       // 下一页
       nextPage () {
-        this.rendition.next()
+        if (this.rendition) {
+          this.rendition.next()
+          this.hideTitleAndMenu()
+        }
       },
       // 显示标题和菜单
       showTitleAndMemu () {
-        console.log('toggle')
+        this.setMenuVisable(!this.menuVisable)
       },
       // 初始化阅读器
       initEpub () {
-        const url = 'http://192.168.14.15:8081/epub/' + this.fileName + '.epub'
+        const url = 'http://192.168.14.17:8081/epub/' + this.fileName + '.epub'
         this.book = new Epub(url)
         this.rendition = this.book.renderTo('read', {
           width: innerWidth,
@@ -52,6 +62,8 @@
           } else {
             this.showTitleAndMemu()
           }
+          event.preventDefault() // 兼容微信
+          event.stopPropagation() // 阻止冒泡
         })
       }
     },
