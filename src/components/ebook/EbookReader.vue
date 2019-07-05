@@ -18,7 +18,7 @@
     methods: {
       // 隐藏标题和菜单栏
       hideTitleAndMenu () {
-        this.setMenuVisable(false)
+        this.setMenuVisible(false)
         this.setSettingVisible(-1)
       },
       // 上一页
@@ -40,12 +40,13 @@
         if (this.rendition) {
           this.setSettingVisible(-1)
         }
-        this.setMenuVisable(!this.menuVisable)
+        this.setMenuVisible(!this.menuVisible)
       },
       // 初始化阅读器
       initEpub () {
-        const url = 'http://192.168.14.21:8081/epub/' + this.fileName + '.epub'
+        const url = 'http://192.168.14.14:8081/epub/' + this.fileName + '.epub'
         this.book = new Epub(url)
+        this.setCurrentBook(this.book)
         this.rendition = this.book.renderTo('read', {
           width: innerWidth,
           height: innerHeight,

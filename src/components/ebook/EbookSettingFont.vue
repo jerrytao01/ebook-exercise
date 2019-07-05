@@ -1,6 +1,6 @@
 <template>
   <transition name="slide-up">
-    <div class="setting-wrapper" v-show="menuVisable && settingVisible === 0">
+    <div class="setting-wrapper" v-show="menuVisible && settingVisible === 0">
       <div class="setting-font-size">
         <div class="preview" :style="{fontSize: fontSizeList[0].fontSize + 'px'}">A</div>
         <div class="select">
@@ -37,6 +37,8 @@
     },
     methods: {
       setFontSize (fontSize) {
+        this.setDefaultFontSize(fontSize)
+        this.currentBook.rendition.themes.fontSize(fontSize)
       }
     }
   }
